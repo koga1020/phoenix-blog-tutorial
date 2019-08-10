@@ -1,9 +1,6 @@
 FROM elixir:1.8.1-slim
 
-ARG APP_DIR=/app
-
-RUN mkdir ${APP_DIR}
-WORKDIR ${APP_DIR}
+WORKDIR /app
 
 RUN apt-get update -y && \
     apt-get upgrade -y && \
@@ -11,13 +8,11 @@ RUN apt-get update -y && \
     sudo \
     curl \
     git \
-    gcc \
-    g++ \
-    make \
+    build-essential \
     inotify-tools
 
 RUN yes | mix local.hex
-RUN yes | mix archive.install hex phx_new 1.4.3
+RUN yes | mix archive.install hex phx_new ${PHOENIX_VERSION}
 RUN mix local.rebar --force
 
 RUN curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -

@@ -9,6 +9,8 @@ services:
       - ${APP_CODE_PATH_HOST}:/app
     ports:
       - "${PHOENIX_PORT}:4000"
+    environment:
+      - PHOENIX_VERSION=${PHOENIX_VERSION}
     networks:
       - backend
   postgres:
